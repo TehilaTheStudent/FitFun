@@ -1,4 +1,5 @@
-﻿namespace SuperSport_Project.Entities
+﻿namespace FitFun_Project.Entities
+
 {
     public class Teacher
     {

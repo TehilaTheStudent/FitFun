@@ -443,9 +443,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\project\\כיתה ו\\Net Core\\SuperSport\\SuperSport_Solution\\SuperSport_Project\\SuperSport_Project.csproj",
-      "projectName": "SuperSport_Project",
-      "projectPath": "D:\\project\\כיתה ו\\Net Core\\SuperSport\\SuperSport_Solution\\SuperSport_Project\\SuperSport_Project.csproj",
+      "projectUniqueName": "D:\\project\\כיתה ו\\Net Core\\SuperSport\\SuperSport_Solution\\SuperSport_Project\\FitFun_Project.csproj",
+      "projectName": "FitFun_Project",
+      "projectPath": "D:\\project\\כיתה ו\\Net Core\\SuperSport\\SuperSport_Solution\\SuperSport_Project\\FitFun_Project.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
       "outputPath": "D:\\project\\כיתה ו\\Net Core\\SuperSport\\SuperSport_Solution\\SuperSport_Project\\obj\\",
       "projectStyle": "PackageReference",

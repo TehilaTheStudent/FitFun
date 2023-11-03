@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SuperSport_Project.Entities;
+using FitFun_Project.Entities;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace SuperSportProject.Controllers
+namespace FitFun_Project.Controllers
 {
-    [Route("SuperSport/[controller]")]
+    [Route("FitFun/[controller]")]
     [ApiController]
     public class TeachersController : ControllerBase
     {
@@ -41,7 +39,7 @@ namespace SuperSportProject.Controllers
             var deleteTeacher = _teachers.Find(teachI => teachI.id == id);
             _teachers.Remove(deleteTeacher);
             _teachers.Add(
-                                new Teacher { id = _id++, experience = newTeacher.experience, phoneNumber = newTeacher.phoneNumber, age = newTeacher.age, name = newTeacher.name }
+                                new Teacher { id = id, experience = newTeacher.experience, phoneNumber = newTeacher.phoneNumber, age = newTeacher.age, name = newTeacher.name }
 );
         }
 

@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "90ef2d39-c89c-4f7f-9f2d-897da026f998",
+		"name": "FitFun end points",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30922081",
+		"_collection_link": "https://crimson-escape-715159.postman.co/workspace/try1~494cba51-aab0-4037-aa32-a2f153c6d26e/collection/30922081-90ef2d39-c89c-4f7f-9f2d-897da026f998?action=share&source=collection_link&creator=30922081"
+	},
+	"item": [
+		{
+			"name": "list of lessons",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\nnull"
+				},
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Lessons",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Lessons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add a lesson",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 0,\r\n    \"type\": \"plesson 2\",\r\n    \"price\": 35,\r\n    \"startHour\": \"0001-01-01T00:00:00\",\r\n    \"endHour\": \"0001-01-01T00:00:00\",\r\n    \"teacherId\": 0,\r\n    \"participantsIdList\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Lessons",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Lessons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lesson by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\nnull"
+				},
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Lessons/0",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Lessons",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete a lesson",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Lessons/0",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Lessons",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put a lesson",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"id\": 1,\r\n        \"type\": \"string\",\r\n        \"price\": 0,\r\n        \"startHour\": \"2023-11-03T13:11:42.304Z\",\r\n        \"endHour\": \"2023-11-03T13:11:42.304Z\",\r\n        \"teacherId\": 0,\r\n        \"participantsIdList\": [\r\n            0\r\n        ]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Lessons/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Lessons",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list of teachers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Teachers",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Teachers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "teacher by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Teachers/0",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Teachers",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add a teacher",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"id\": 0,\r\n        \"name\": \"Malci Katz\",\r\n        \"age\": 25,\r\n        \"phoneNumber\": \"0556725888\",\r\n        \"experience\": 3\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Teachers",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Teachers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put a teacher",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"id\": 0,\r\n        \"name\": \"new teacher\",\r\n        \"age\": 25,\r\n        \"phoneNumber\": \"0556725888\",\r\n        \"experience\": 3\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Teachers/0",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Teachers",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete a teacher",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Teachers/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Teachers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list of participants",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Participants",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Participants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "participant by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Participants/0",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Participants",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add a participant",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 0,\r\n    \"name\": \"fdsafdsafdas\",\r\n    \"phoneNumber\": \"0556712345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Participants",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Participants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put a participant",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 0,\r\n    \"name\": \"Orli fdsafdsafdasLevi\",\r\n    \"phoneNumber\": \"0556712345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Participants/0",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Participants",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete a participant",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7133/FitFun/Participants/0",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7133",
+					"path": [
+						"FitFun",
+						"Participants",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

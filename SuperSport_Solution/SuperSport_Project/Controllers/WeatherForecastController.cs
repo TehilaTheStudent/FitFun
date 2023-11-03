@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using SuperSport_Project.Entities;
+using FitFun_Project.Entities;
 
-namespace SuperSportProject.Controllers
+namespace FitFun_Project.Controllers
 {
     [ApiController]
     [Route("[controller]")]

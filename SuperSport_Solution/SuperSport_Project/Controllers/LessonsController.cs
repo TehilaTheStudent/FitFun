@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SuperSport_Project.Entities;
+using FitFun_Project.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace SuperSportProject.Controllers
+namespace FitFun_Project.Controllers
 {
-    [Route("SuperSport/[controller]")]
+    [Route("FitFun/[controller]")]
     [ApiController]
     public class LessonsController : ControllerBase
     {
@@ -66,7 +66,7 @@ namespace SuperSportProject.Controllers
         {
             var deleteLesson = _lessons.Find(lessI => lessI.id == id);
             _lessons.Remove(deleteLesson);
-        _lessons.Add(    new Lesson { id = _id++, type = newLesson.type, price = newLesson.price, startHour = newLesson.startHour, endHour = newLesson.endHour, teacherId = newLesson.teacherId, participantsIdList = newLesson.participantsIdList }
+        _lessons.Add(    new Lesson { id = id, type = newLesson.type, price = newLesson.price, startHour = newLesson.startHour, endHour = newLesson.endHour, teacherId = newLesson.teacherId, participantsIdList = newLesson.participantsIdList }
         );
         }
 
