@@ -1,7 +1,7 @@
 # SuperSport 
 ## entities: 
 1. Lesson: id, type, price, startHout, endHour, teacher, participantsList , dayInWeek
-2. Teacher : id, name , age , phoneNumber, certification 
+2. Teacher : id, name , age , phoneNumber, expericence
 3. Participant :id, name , phoneNumver, 
 ## get functions:
 * https://SuperSport/teachers =רשימת מורות
@@ -13,7 +13,7 @@
 * https://SuperSport/teachers/{id}/lessons =רשימת שיעורים שאחת המורות מעבירה
 * https://SuperSport/lessons/{id}/participants =רשימת משתתפות בשיעור
 * https://SuperSport/participants/{id}/lessons =רשימת שיעורים של משתתפת
-* https://SuperSport/lessons?day=val&startH=val&endH=val&price=val =שיעורים שמתקימים ביום ובשעה מסוימים  
+* https://SuperSport/lessons?day=val&startH=val&endH=val =שיעורים שמתקימים ביום ובשעה מסוימים  
 
 ## post functions:
 * https://SuperSport/teacher =הוספת מורה
