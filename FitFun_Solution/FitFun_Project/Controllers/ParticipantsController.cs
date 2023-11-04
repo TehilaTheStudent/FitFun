@@ -1,18 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.StaticFiles;
-using FitFun_Project.Entities;
+﻿using FitFun_Project.Entities;
+using Microsoft.AspNetCore.Mvc;
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-
 
 namespace FitFun_Project.Controllers
 {
     [Route("FitFun/[controller]")]
     [ApiController]
-    public class ParticipantsController : ControllerBase
+    public class participantsController : ControllerBase
     {
-        private static List<Participant> _participants = new List<Participant> { new Participant { id = _id, name = "Orli Levi", phoneNumber = "0556712345" } };
-        private static int _id = 1;
+        private static List<Participant> _participants = new List<Participant> {
+            new Participant { id = 0, name = "Orli Levi", phoneNumber = "0556712345" } ,
+             new Participant { id = 1, name = "Tamar Yosef", phoneNumber = "0556718345" },
+              new Participant { id = 2, name = "Michal Tzuker", phoneNumber = "0556112345" },
+               new Participant { id = 3, name = "Shira Shoham", phoneNumber = "0556712343" }
+        };
+        private static int _id = 4;
         // GET: api/<ParticipantsController>
         [HttpGet]
         public List<Participant> Get()

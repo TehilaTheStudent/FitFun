@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using FitFun_Project.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FitFun_Project.Controllers
 {

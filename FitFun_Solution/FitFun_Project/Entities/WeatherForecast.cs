@@ -1,5 +1,4 @@
 namespace FitFun_Project.Entities
-
 {
     public class WeatherForecast
     {
