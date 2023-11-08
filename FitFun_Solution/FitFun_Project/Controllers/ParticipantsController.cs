@@ -15,22 +15,21 @@ namespace FitFun_Project.Controllers
             this.dataContextInstance = dataContextInstance;
         }
         
-        // GET: api/<ParticipantsController>
         [HttpGet]
         public List<Participant> Get()
         {
             return dataContextInstance.participantsList;
         }
 
-        // GET api/<ParticipantsController>/5
         [HttpGet("{id}")]
-        public Participant Get(int id)
+        public ActionResult<Participant> Get(int id)
         {
-            return dataContextInstance.participantsList.Find(partI => partI.id == id);
+            var res= dataContextInstance.participantsList.Find(partI => partI.id == id);
+            if (res == null) return StatusCode(404, "participant id not found in participants");
+            return res;
         }
 
 
-        // POST api/<ParticipantsController>
         [HttpPost]
         public void Post([FromBody] Participant newParticipant)
         {
@@ -43,11 +42,11 @@ namespace FitFun_Project.Controllers
 
         }
 
-        // PUT api/<ParticipantsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Participant newParticipant)
+        public ActionResult Put(int id, [FromBody] Participant newParticipant)
         {
             var deleteParticipant = dataContextInstance.participantsList.Find(partI => partI.id == id);
+            if (deleteParticipant == null) return StatusCode(404, "participant id not found in participants");
             dataContextInstance.participantsList.Remove(deleteParticipant);
             dataContextInstance.participantsList.Add(new Participant
             {
@@ -55,15 +54,18 @@ namespace FitFun_Project.Controllers
                 name = newParticipant.name,
                 phoneNumber = newParticipant.phoneNumber
             });
+            return Ok();
 
         }
 
-        // DELETE api/<ParticipantsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+
             var deleteParticipant = dataContextInstance.participantsList.Find(partI => partI.id == id);
+            if (deleteParticipant == null) return StatusCode(404, "participant id not found in participants");
             dataContextInstance.participantsList.Remove(deleteParticipant);
+            return Ok();
         }
     }
 }

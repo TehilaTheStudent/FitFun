@@ -17,21 +17,20 @@ namespace FitFun_Project.Controllers
         }
 
 
-        // GET: SuperSport/<TeachersController>
         [HttpGet]
         public List<Teacher> Get()
         {
             return dataContextInstance.teachersList;
         }
 
-        // GET SuperSport/<TeachersController>/5
         [HttpGet("{id}")]
-        public Teacher Get(int id)
+        public ActionResult< Teacher> Get(int id)
         {
-            return dataContextInstance.teachersList.Find(teachI => teachI.id == id);
+            var res= dataContextInstance.teachersList.Find(teachI => teachI.id == id);
+            if (res == null) return StatusCode(404, "teacher id not found in teacher list");
+            return res;
         }
 
-        // POST SuperSport/<TeachersController>
         [HttpPost]
         public void Post([FromBody] Teacher newTeacher)
         {
@@ -40,23 +39,27 @@ namespace FitFun_Project.Controllers
                 );
         }
 
-        // PUT SuperSport/<TeachersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Teacher newTeacher)
+        public ActionResult Put(int id, [FromBody] Teacher newTeacher)
         {
             var deleteTeacher = dataContextInstance.teachersList.Find(teachI => teachI.id == id);
+            if (deleteTeacher == null) return StatusCode(404, "teacher id not found in teacher list");
+
             dataContextInstance.teachersList.Remove(deleteTeacher);
             dataContextInstance.teachersList.Add(
                                 new Teacher { id = id, experience = newTeacher.experience, phoneNumber = newTeacher.phoneNumber, age = newTeacher.age, name = newTeacher.name }
 );
+            return Ok();
         }
 
-        // DELETE SuperSport/<TeachersController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
             var deleteTeacher = dataContextInstance.teachersList.Find(teachI => teachI.id == id);
+            if (deleteTeacher == null) return StatusCode(404, "teacher id not found in teacher list");
+
             dataContextInstance.teachersList.Remove(deleteTeacher);
+            return Ok();
 
         }
     }

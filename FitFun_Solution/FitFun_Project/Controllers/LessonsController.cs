@@ -10,71 +10,62 @@ namespace FitFun_Project.Controllers
     public class lessonsController : ControllerBase
     {
 
-  private readonly DataContext dataContextInstance;
+        private readonly DataContext dataContextInstance;
         public lessonsController(DataContext dataContextInstance)
         {
             this.dataContextInstance = dataContextInstance;
         }
 
-<<<<<<< HEAD
-       };
-        private static int _id = 2;
         [HttpPut("participants/{id}")]
-=======
-        [HttpPut]
-        [Route("participants/{id}")]
->>>>>>> 832fc8192c2979459c8f47df0f7b0d9b61a1f368
-        public void PutParticipantIntoLessons(int id,[FromBody] List<int> lessList)
+        public ActionResult PutParticipantIntoLessons(int id, [FromBody] List<int> lessList)
         {
+            if (!dataContextInstance.participantsList.Exists(partI => partI.id == id)) return StatusCode(404, "id not exists in participnats");
             foreach (var lessI in dataContextInstance.lessonsList)
             {//participant not signed and  wants to sign
                 if (!lessI.participantsIdList.Exists(partI => partI == id) && lessList.Exists(lessId => lessId == lessI.id))
                     lessI.participantsIdList.Add(id);
                 //participant  signed and doesnt want to sign
-                    if (lessI.participantsIdList.Exists(partI => partI == id) && !lessList.Exists(lessId => lessId == lessI.id))
+                if (lessI.participantsIdList.Exists(partI => partI == id) && !lessList.Exists(lessId => lessId == lessI.id))
                     lessI.participantsIdList.Remove(id);
             }
+            return Ok();
         }
 
         [HttpGet("teachers/{id}")]
-        public List<Lesson> GetLessonsByTeacher(int id)
+        public ActionResult<List<Lesson>> GetLessonsByTeacher(int id)
         {
-            return dataContextInstance.lessonsList.FindAll(lessI => lessI.teacherId == id);
+            List<Lesson> res= dataContextInstance.lessonsList.FindAll(lessI => lessI.teacherId == id);
+            if (res.Count == 0) return StatusCode(404, "teacher id not found in lesson list");
+            return res;
         }
+  
         [HttpGet("participants/{id}")]
-        public List<Lesson> GetLessonsByParticipant(int id)
+        public ActionResult<List<Lesson>> GetLessonsByParticipant(int id)
         {
-            return dataContextInstance.lessonsList.FindAll(lessI => lessI.participantsIdList.Exists(partI=>partI==id));
+            List<Lesson> res = dataContextInstance.lessonsList.FindAll(lessI => lessI.participantsIdList.Exists(partI => partI == id));
+            if (res.Count == 0) return StatusCode(404, "participant id not found in lessons' participant list");
+            return res;
         }
-
-        // GET: SuperSport/<LessonsController>
         [HttpGet]
-        public List<Lesson> Get()
+        public List<Lesson> Get(int startH, int endH)
         {
-            return dataContextInstance.lessonsList;
-        }
+            return dataContextInstance.lessonsList.Where(lessI => (lessI.startHour.Hour >= startH || startH == null) && (lessI.endHour.Hour <= endH || endH == null)).ToList();
 
-        [HttpGet("hours")]
-
-        public List<Lesson> GetHoursRange(int startH,int endH)
-        {
-            if (_lessons.FindAll(lessI => lessI.startHour.Hour >= startH && lessI.endHour.Hour <= endH).Count != 0)
-                return _lessons.FindAll(lessI => lessI.startHour.Hour >= startH && lessI.endHour.Hour <= endH);
-            return null;
         }
-        // GET SuperSport/<LessonsController>/5
         [HttpGet("{id}")]
-        public Lesson Get(int id)
+        public ActionResult< Lesson> Get(int id)
         {
-            return dataContextInstance.lessonsList.Find(lessI => lessI.id == id);
-
+           var res= dataContextInstance.lessonsList.Find(lessI => lessI.id == id);
+            if (res == null)
+                return StatusCode(404, "lesson id not found in lessons");
+            return res;
         }
 
-        // POST SuperSport/<LessonsController>
         [HttpPost]
         public void Post([FromBody] Lesson newLesson)
         {
-
+            //האם לעשות בדיקות תקינות?
+           //על השעות המשתתפות והמורות
             dataContextInstance.lessonsList.Add(new Lesson
             {
                 id = dataContextInstance.indexLesson++,
@@ -88,22 +79,25 @@ namespace FitFun_Project.Controllers
             });
         }
 
-        // PUT SuperSport/<LessonsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Lesson newLesson)
+        public ActionResult Put(int id, [FromBody] Lesson newLesson)
         {
+    //check also?
             var deleteLesson = dataContextInstance.lessonsList.Find(lessI => lessI.id == id);
+            if (deleteLesson == null)
+                return StatusCode(404, "lesson id not found in lessons");
             dataContextInstance.lessonsList.Remove(deleteLesson);
-            dataContextInstance.lessonsList.Add(new Lesson { id = id, type = newLesson.type, price = newLesson.price, startHour = newLesson.startHour, endHour = newLesson.endHour, teacherId = newLesson.teacherId, participantsIdList = newLesson.participantsIdList }
-            );
+            dataContextInstance.lessonsList.Add(new Lesson { id = id, type = newLesson.type, price = newLesson.price, startHour = newLesson.startHour, endHour = newLesson.endHour, teacherId = newLesson.teacherId, participantsIdList = newLesson.participantsIdList });
+            return Ok();
         }
 
-        // DELETE SuperSport/<LessonsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
             var deleteLesson = dataContextInstance.lessonsList.Find(lessI => lessI.id == id);
+            if (deleteLesson == null) return StatusCode(404, "lesson id not found in lessons");
             dataContextInstance.lessonsList.Remove(deleteLesson);
+            return Ok();
         }
     }
 }
