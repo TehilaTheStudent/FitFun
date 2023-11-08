@@ -9,25 +9,24 @@ namespace FitFun_Project.Controllers
     [ApiController]
     public class participantsController : ControllerBase
     {
-        private static List<Participant> _participants = new List<Participant> {
-            new Participant { id = 0, name = "Orli Levi", phoneNumber = "0556712345" } ,
-             new Participant { id = 1, name = "Tamar Yosef", phoneNumber = "0556718345" },
-              new Participant { id = 2, name = "Michal Tzuker", phoneNumber = "0556112345" },
-               new Participant { id = 3, name = "Shira Shoham", phoneNumber = "0556712343" }
-        };
-        private static int _id = 4;
+      private readonly DataContext dataContextInstance;
+            public participantsController(DataContext dataContextInstance)
+        {
+            this.dataContextInstance = dataContextInstance;
+        }
+        
         // GET: api/<ParticipantsController>
         [HttpGet]
         public List<Participant> Get()
         {
-            return _participants;
+            return dataContextInstance.participantsList;
         }
 
         // GET api/<ParticipantsController>/5
         [HttpGet("{id}")]
         public Participant Get(int id)
         {
-            return _participants.Find(partI => partI.id == id);
+            return dataContextInstance.participantsList.Find(partI => partI.id == id);
         }
 
 
@@ -35,9 +34,9 @@ namespace FitFun_Project.Controllers
         [HttpPost]
         public void Post([FromBody] Participant newParticipant)
         {
-            _participants.Add(new Participant
+            dataContextInstance.participantsList.Add(new Participant
             {
-                id = _id++,
+                id = dataContextInstance.indexParticipant++,
                 name = newParticipant.name,
                 phoneNumber = newParticipant.phoneNumber
             });
@@ -48,9 +47,9 @@ namespace FitFun_Project.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Participant newParticipant)
         {
-            var deleteParticipant = _participants.Find(partI => partI.id == id);
-            _participants.Remove(deleteParticipant);
-            _participants.Add(new Participant
+            var deleteParticipant = dataContextInstance.participantsList.Find(partI => partI.id == id);
+            dataContextInstance.participantsList.Remove(deleteParticipant);
+            dataContextInstance.participantsList.Add(new Participant
             {
                 id = id,
                 name = newParticipant.name,
@@ -63,8 +62,8 @@ namespace FitFun_Project.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var deleteParticipant = _participants.Find(partI => partI.id == id);
-            _participants.Remove(deleteParticipant);
+            var deleteParticipant = dataContextInstance.participantsList.Find(partI => partI.id == id);
+            dataContextInstance.participantsList.Remove(deleteParticipant);
         }
     }
 }
