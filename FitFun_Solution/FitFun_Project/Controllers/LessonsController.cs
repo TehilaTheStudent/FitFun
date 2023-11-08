@@ -23,8 +23,7 @@ namespace FitFun_Project.Controllers
 
        };
         private static int _id = 2;
-        [HttpPut]
-        [Route("participants/{id}")]
+        [HttpPut("participants/{id}")]
         public void PutParticipantIntoLessons(int id,[FromBody] List<int> lessList)
         {
             foreach (var lessI in _lessons)
@@ -37,14 +36,12 @@ namespace FitFun_Project.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("teachers/{id}")]
+        [HttpGet("teachers/{id}")]
         public List<Lesson> GetLessonsByTeacher(int id)
         {
             return _lessons.FindAll(lessI => lessI.teacherId == id);
         }
-        [HttpGet]
-        [Route("participants/{id}")]
+        [HttpGet("participants/{id}")]
         public List<Lesson> GetLessonsByParticipant(int id)
         {
             return _lessons.FindAll(lessI => lessI.participantsIdList.Exists(partI=>partI==id));
@@ -57,14 +54,14 @@ namespace FitFun_Project.Controllers
             return _lessons;
         }
 
-        //[HttpGet]
+        [HttpGet("hours")]
 
-        //public List<Lesson> GetHoursRange([FromQuery] int startH, [FromQuery] int endH)
-        //{
-        //    if (_lessons.FindAll(lessI => lessI.startHour.Hour >= startH && lessI.endHour.Hour <= endH).Count != 0)
-        //        return _lessons.FindAll(lessI => lessI.startHour.Hour >= startH && lessI.endHour.Hour <= endH);
-        //    return null;
-        //}
+        public List<Lesson> GetHoursRange(int startH,int endH)
+        {
+            if (_lessons.FindAll(lessI => lessI.startHour.Hour >= startH && lessI.endHour.Hour <= endH).Count != 0)
+                return _lessons.FindAll(lessI => lessI.startHour.Hour >= startH && lessI.endHour.Hour <= endH);
+            return null;
+        }
         // GET SuperSport/<LessonsController>/5
         [HttpGet("{id}")]
         public Lesson Get(int id)
