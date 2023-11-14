@@ -31,20 +31,33 @@ namespace FitFun_Project.Controllers
 
 
         [HttpPost]
-        public void Post([FromBody] Participant newParticipant)
+        public ActionResult Post([FromBody] Participant newParticipant)
         {
+            if (!validPhone(newParticipant.phoneNumber)) return StatusCode(400, "phone number wrong");
+
             dataContextInstance.participantsList.Add(new Participant
             {
                 id = dataContextInstance.indexParticipant++,
                 name = newParticipant.name,
                 phoneNumber = newParticipant.phoneNumber
             });
+            return Ok();
 
         }
 
+        public bool validPhone(string phone)
+        {
+            if (phone.Length != 10) return false;
+            foreach (int ci in phone)
+            {
+                if (ci < 48 || ci > 57) return false;
+            }
+            return true;
+        }
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] Participant newParticipant)
         {
+            if (!validPhone(newParticipant.phoneNumber)) return StatusCode(400, "phone number wrong");
             var deleteParticipant = dataContextInstance.participantsList.Find(partI => partI.id == id);
             if (deleteParticipant == null) return StatusCode(404, "participant id not found in participants");
             dataContextInstance.participantsList.Remove(deleteParticipant);
@@ -61,7 +74,7 @@ namespace FitFun_Project.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-
+            //לבטל רישום לשיעורים
             var deleteParticipant = dataContextInstance.participantsList.Find(partI => partI.id == id);
             if (deleteParticipant == null) return StatusCode(404, "participant id not found in participants");
             dataContextInstance.participantsList.Remove(deleteParticipant);
