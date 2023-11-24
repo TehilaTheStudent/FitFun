@@ -1,4 +1,6 @@
-﻿using FitFun_Project.Entities;
+﻿using FitFun_Project.Core.Services;//added
+using FitFun_Project.Entities;//added
+
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,44 +12,37 @@ namespace FitFun_Project.Controllers
     public class lessonsController : ControllerBase
     {
 
-  private readonly DataContext dataContextInstance;
-        public lessonsController(DataContext dataContextInstance)
+  private readonly InterfaceLessonService _InterfaceLessonServiceInstance;
+        public lessonsController(InterfaceLessonService interfaceLessonServiceInstance)
         {
-            this.dataContextInstance = dataContextInstance;
+            this._InterfaceLessonServiceInstance = interfaceLessonServiceInstance;
         }
 
         [HttpPut]
         [Route("participants/{id}")]
         public void PutParticipantIntoLessons(int id,[FromBody] List<int> lessList)
         {
-            foreach (var lessI in dataContextInstance.lessonsList)
-            {//participant not signed and  wants to sign
-                if (!lessI.participantsIdList.Exists(partI => partI == id) && lessList.Exists(lessId => lessId == lessI.id))
-                    lessI.participantsIdList.Add(id);
-                //participant  signed and doesnt want to sign
-                    if (lessI.participantsIdList.Exists(partI => partI == id) && !lessList.Exists(lessId => lessId == lessI.id))
-                    lessI.participantsIdList.Remove(id);
-            }
+            _InterfaceLessonServiceInstance.PutParticipantIntoLessons(id,lessList);
         }
 
         [HttpGet]
         [Route("teachers/{id}")]
         public List<Lesson> GetLessonsByTeacher(int id)
         {
-            return dataContextInstance.lessonsList.FindAll(lessI => lessI.teacherId == id);
+            return _InterfaceLessonServiceInstance.GetLessonsByTeacher(id);
         }
         [HttpGet]
         [Route("participants/{id}")]
         public List<Lesson> GetLessonsByParticipant(int id)
         {
-            return dataContextInstance.lessonsList.FindAll(lessI => lessI.participantsIdList.Exists(partI=>partI==id));
+            return _InterfaceLessonServiceInstance.GetLessonsByParticipant(id);
         }
 
         // GET: SuperSport/<LessonsController>
         [HttpGet]
         public List<Lesson> Get()
         {
-            return dataContextInstance.lessonsList;
+            return _InterfaceLessonServiceInstance.Get();
         }
 
         //[HttpGet]
@@ -62,7 +57,7 @@ namespace FitFun_Project.Controllers
         [HttpGet("{id}")]
         public Lesson Get(int id)
         {
-            return dataContextInstance.lessonsList.Find(lessI => lessI.id == id);
+            return _InterfaceLessonServiceInstance.Get(id);
 
         }
 
@@ -71,35 +66,21 @@ namespace FitFun_Project.Controllers
         public void Post([FromBody] Lesson newLesson)
         {
 
-            dataContextInstance.lessonsList.Add(new Lesson
-            {
-                id = dataContextInstance.indexLesson++,
-                type = newLesson.type,
-                price = newLesson.price,
-                startHour = newLesson.startHour,
-                endHour = newLesson.endHour,
-                teacherId = newLesson.teacherId,
-                participantsIdList = newLesson.participantsIdList
-
-            });
+            _InterfaceLessonServiceInstance.Post(newLesson);
         }
 
         // PUT SuperSport/<LessonsController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Lesson newLesson)
         {
-            var deleteLesson = dataContextInstance.lessonsList.Find(lessI => lessI.id == id);
-            dataContextInstance.lessonsList.Remove(deleteLesson);
-            dataContextInstance.lessonsList.Add(new Lesson { id = id, type = newLesson.type, price = newLesson.price, startHour = newLesson.startHour, endHour = newLesson.endHour, teacherId = newLesson.teacherId, participantsIdList = newLesson.participantsIdList }
-            );
+            _InterfaceLessonServiceInstance.Put(id, newLesson);
         }
 
         // DELETE SuperSport/<LessonsController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var deleteLesson = dataContextInstance.lessonsList.Find(lessI => lessI.id == id);
-            dataContextInstance.lessonsList.Remove(deleteLesson);
+            _InterfaceLessonServiceInstance.Delete(id);
         }
     }
 }

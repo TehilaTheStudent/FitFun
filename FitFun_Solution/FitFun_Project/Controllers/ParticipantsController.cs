@@ -1,4 +1,5 @@
-﻿using FitFun_Project.Entities;
+﻿using FitFun_Project.Core.Services;//added
+using FitFun_Project.Entities;//added
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,24 +10,24 @@ namespace FitFun_Project.Controllers
     [ApiController]
     public class participantsController : ControllerBase
     {
-      private readonly DataContext dataContextInstance;
-            public participantsController(DataContext dataContextInstance)
+      private readonly InterfaceParticipantService _interfaceParticipantServiceInstance;
+            public participantsController(InterfaceParticipantService interfaceParticipantServiceInstance)
         {
-            this.dataContextInstance = dataContextInstance;
+            this._interfaceParticipantServiceInstance = interfaceParticipantServiceInstance;
         }
         
         // GET: api/<ParticipantsController>
         [HttpGet]
         public List<Participant> Get()
         {
-            return dataContextInstance.participantsList;
+            return _interfaceParticipantServiceInstance.Get();
         }
 
         // GET api/<ParticipantsController>/5
         [HttpGet("{id}")]
         public Participant Get(int id)
         {
-            return dataContextInstance.participantsList.Find(partI => partI.id == id);
+            return _interfaceParticipantServiceInstance.Get(id);
         }
 
 
@@ -34,36 +35,21 @@ namespace FitFun_Project.Controllers
         [HttpPost]
         public void Post([FromBody] Participant newParticipant)
         {
-            dataContextInstance.participantsList.Add(new Participant
-            {
-                id = dataContextInstance.indexParticipant++,
-                name = newParticipant.name,
-                phoneNumber = newParticipant.phoneNumber
-            });
-
+            _interfaceParticipantServiceInstance.Post(newParticipant);
         }
 
         // PUT api/<ParticipantsController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Participant newParticipant)
         {
-            var deleteParticipant = dataContextInstance.participantsList.Find(partI => partI.id == id);
-            dataContextInstance.participantsList.Remove(deleteParticipant);
-            dataContextInstance.participantsList.Add(new Participant
-            {
-                id = id,
-                name = newParticipant.name,
-                phoneNumber = newParticipant.phoneNumber
-            });
-
+            _interfaceParticipantServiceInstance.Put(id, newParticipant);
         }
 
         // DELETE api/<ParticipantsController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var deleteParticipant = dataContextInstance.participantsList.Find(partI => partI.id == id);
-            dataContextInstance.participantsList.Remove(deleteParticipant);
+            _interfaceParticipantServiceInstance.Delete(id);
         }
     }
 }
