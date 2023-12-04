@@ -1,4 +1,9 @@
+<<<<<<< HEAD:FitFun_Solution/FitFun_Project.Data/DataContext.cs
 ﻿using FitFun_Project.Entities;//added
+=======
+﻿using FitFun_Project.Controllers;
+using FitFun_Project.Entities;
+>>>>>>> 923bad43edbc44a91c99a6b4659e22a0c6a4cc98:FitFun_Solution/FitFun_Project/DataContext.cs
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,5 +52,7 @@ namespace FitFun_Project
             indexParticipant= 4;
 
         }
+ 
+
     }
 }
