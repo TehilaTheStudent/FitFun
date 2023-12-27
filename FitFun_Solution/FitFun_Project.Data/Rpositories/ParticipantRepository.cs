@@ -19,22 +19,22 @@ namespace FitFun_Project.Data.Rpositories
      
         public List<Participant> Get()
         {
-            return _dataContextInstance.participantsList;
+            return _dataContextInstance.participantsData.ToList<Participant>();
         }
 
     
         public Participant Get(int id)
         {
-            return _dataContextInstance.participantsList.Find(partI => partI.id == id);
+            return _dataContextInstance.participantsData.ToList<Participant>().Find(partI => partI.ID == id);
         }
 
 
 
         public void Post( Participant newParticipant)
         {
-            _dataContextInstance.participantsList.Add(new Participant
+            _dataContextInstance.participantsData.ToList<Participant>().Add(new Participant
             {
-                id = _dataContextInstance.indexParticipant++,
+                ID = _dataContextInstance.indexParticipant++,
                 name = newParticipant.name,
                 phoneNumber = newParticipant.phoneNumber
             });
@@ -43,11 +43,11 @@ namespace FitFun_Project.Data.Rpositories
 
         public void Put(int id, Participant newParticipant)
         {
-            var deleteParticipant = _dataContextInstance.participantsList.Find(partI => partI.id == id);
-            _dataContextInstance.participantsList.Remove(deleteParticipant);
-            _dataContextInstance.participantsList.Add(new Participant
+            var deleteParticipant = _dataContextInstance.participantsData.ToList<Participant>().Find(partI => partI.ID == id);
+            _dataContextInstance.participantsData.ToList<Participant>().Remove(deleteParticipant);
+            _dataContextInstance.participantsData.ToList<Participant>().Add(new Participant
             {
-                id = id,
+                ID = id,
                 name = newParticipant.name,
                 phoneNumber = newParticipant.phoneNumber
             });
@@ -56,8 +56,8 @@ namespace FitFun_Project.Data.Rpositories
 
         public void Delete(int id)
         {
-            var deleteParticipant = _dataContextInstance.participantsList.Find(partI => partI.id == id);
-            _dataContextInstance.participantsList.Remove(deleteParticipant);
+            var deleteParticipant = _dataContextInstance.participantsData.ToList<Participant>().Find(partI => partI.ID == id);
+            _dataContextInstance.participantsData.ToList<Participant>().Remove(deleteParticipant);
         }
     }
 }

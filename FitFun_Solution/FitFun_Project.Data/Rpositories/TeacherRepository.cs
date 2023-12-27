@@ -20,38 +20,38 @@ namespace FitFun_Project.Data.Rpositories
     
         public List<Teacher> Get()
         {
-            return _dataContextInstance.teachersList;
+            return _dataContextInstance.teachersData.ToList<Teacher>();
         }
 
       
         public Teacher Get(int id)
         {
-            return _dataContextInstance.teachersList.Find(teachI => teachI.id == id);
+            return _dataContextInstance.teachersData.ToList<Teacher>().Find(teachI => teachI.ID == id);
         }
 
     
         public void Post( Teacher newTeacher)
         {
-            _dataContextInstance.teachersList.Add(
-                new Teacher { id = _dataContextInstance.indexTeacher, experience = newTeacher.experience, phoneNumber = newTeacher.phoneNumber, age = newTeacher.age, name = newTeacher.name }
+            _dataContextInstance.teachersData.ToList<Teacher>().Add(
+                new Teacher { ID = _dataContextInstance.indexTeacher, experience = newTeacher.experience, phoneNumber = newTeacher.phoneNumber, age = newTeacher.age, name = newTeacher.name }
                 );
         }
 
     
         public void Put(int id,  Teacher newTeacher)
         {
-            var deleteTeacher = _dataContextInstance.teachersList.Find(teachI => teachI.id == id);
-            _dataContextInstance.teachersList.Remove(deleteTeacher);
-            _dataContextInstance.teachersList.Add(
-                                new Teacher { id = id, experience = newTeacher.experience, phoneNumber = newTeacher.phoneNumber, age = newTeacher.age, name = newTeacher.name }
+            var deleteTeacher = _dataContextInstance.teachersData.ToList<Teacher>().Find(teachI => teachI.ID == id);
+            _dataContextInstance.teachersData.ToList<Teacher>().Remove(deleteTeacher);
+            _dataContextInstance.teachersData.ToList<Teacher>().Add(
+                                new Teacher { ID = id, experience = newTeacher.experience, phoneNumber = newTeacher.phoneNumber, age = newTeacher.age, name = newTeacher.name }
 );
         }
 
     
         public void Delete(int id)
         {
-            var deleteTeacher = _dataContextInstance.teachersList.Find(teachI => teachI.id == id);
-            _dataContextInstance.teachersList.Remove(deleteTeacher);
+            var deleteTeacher = _dataContextInstance.teachersData.ToList<Teacher>().Find(teachI => teachI.ID == id);
+            _dataContextInstance.teachersData.ToList<Teacher>().Remove(deleteTeacher);
 
         }
     }

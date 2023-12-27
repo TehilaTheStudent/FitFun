@@ -18,7 +18,7 @@ builder.Services.AddScoped<InterfaceTeacherService, TeacherService>();//for the 
 builder.Services.AddScoped<InterfaceTeacherRepository, TeacherRepository>();//for the service-teacher
 builder.Services.AddScoped < InterfaceLessonService, LessonService>();//for the controller-lesson
 builder.Services.AddScoped<InterfaceLessonRepository, LessonRepository>();//for the service-lesson
-builder.Services.AddSingleton<DataContext>();//for the repository
+builder.Services.AddDbContext<DataContext>();//for the repository
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -19,31 +19,32 @@ namespace FitFun_Project.Data.Rpositories
       
         public void PutParticipantIntoLessons(int id,List<int> lessList)
         {
-            foreach (var lessI in _dataContextInstance.lessonsList)
-            {//participant not signed and  wants to sign
-                if (!lessI.participantsIdList.Exists(partI => partI == id) && lessList.Exists(lessId => lessId == lessI.id))
-                    lessI.participantsIdList.Add(id);
-                //participant  signed and doesnt want to sign
-                if (lessI.participantsIdList.Exists(partI => partI == id) && !lessList.Exists(lessId => lessId == lessI.id))
-                    lessI.participantsIdList.Remove(id);
-            }
+            //foreach (var lessI in _dataContextInstance.lessonsData.ToList<Lesson>())
+            //{//participant not signed and  wants to sign
+            //    if (!lessI.IDENTITY.Exists(partI => partI == id) && lessList.Exists(lessId => lessId == lessI.ID))
+            //        lessI.IDENTITY.Add(id);
+            //    //participant  signed and doesnt want to sign
+            //    if (lessI.IDENTITY.Exists(partI => partI == id) && !lessList.Exists(lessId => lessId == lessI.ID))
+            //        lessI.IDENTITY.Remove(id);
+            //}
         }
 
     
         public List<Lesson> GetLessonsByTeacher(int id)
         {
-            return _dataContextInstance.lessonsList.FindAll(lessI => lessI.teacherId == id);
+            return _dataContextInstance.lessonsData.ToList<Lesson>().FindAll(lessI => lessI.teacherId == id);
         }
   
         public List<Lesson> GetLessonsByParticipant(int id)
         {
-            return _dataContextInstance.lessonsList.FindAll(lessI => lessI.participantsIdList.Exists(partI => partI == id));
+            //   return _dataContextInstance.lessonsData.ToList<Lesson>().FindAll(lessI => lessI.IDENTITY.Exists(partI => partI == id));
+            return null;
         }
 
 
         public List<Lesson> Get()
         {
-            return _dataContextInstance.lessonsList;
+            return _dataContextInstance.lessonsData.ToList<Lesson>();
         }
 
 
@@ -56,7 +57,7 @@ namespace FitFun_Project.Data.Rpositories
  
         public Lesson Get(int id)
         {
-            return _dataContextInstance.lessonsList.Find(lessI => lessI.id == id);
+            return _dataContextInstance.lessonsData.ToList<Lesson>().Find(lessI => lessI.ID == id);
 
         }
 
@@ -64,15 +65,15 @@ namespace FitFun_Project.Data.Rpositories
         public void Post( Lesson newLesson)
         {
 
-            _dataContextInstance.lessonsList.Add(new Lesson
+            _dataContextInstance.lessonsData.ToList<Lesson>().Add(new Lesson
             {
-                id = _dataContextInstance.indexLesson++,
+                ID = _dataContextInstance.indexLesson++,
                 type = newLesson.type,
                 price = newLesson.price,
                 startHour = newLesson.startHour,
                 endHour = newLesson.endHour,
                 teacherId = newLesson.teacherId,
-                participantsIdList = newLesson.participantsIdList
+              //  IDENTITY = newLesson.IDENTITY
 
             });
         }
@@ -80,16 +81,18 @@ namespace FitFun_Project.Data.Rpositories
 
         public void Put(int id, Lesson newLesson)
         {
-            var deleteLesson = _dataContextInstance.lessonsList.Find(lessI => lessI.id == id);
-            _dataContextInstance.lessonsList.Remove(deleteLesson);
-            _dataContextInstance.lessonsList.Add(new Lesson { id = id, type = newLesson.type, price = newLesson.price, startHour = newLesson.startHour, endHour = newLesson.endHour, teacherId = newLesson.teacherId, participantsIdList = newLesson.participantsIdList }
+            var deleteLesson = _dataContextInstance.lessonsData.ToList<Lesson>().Find(lessI => lessI.ID == id);
+            _dataContextInstance.lessonsData.ToList<Lesson>().Remove(deleteLesson);
+           // _dataContextInstance.lessonsData.ToList<Lesson>().Add(new Lesson { ID = id, type = newLesson.type, price = newLesson.price, startHour = newLesson.startHour, endHour = newLesson.endHour, teacherId = newLesson.teacherId, IDENTITY = newLesson.IDENTITY }
+            _dataContextInstance.lessonsData.ToList<Lesson>().Add(new Lesson { ID = id, type = newLesson.type, price = newLesson.price, startHour = newLesson.startHour, endHour = newLesson.endHour, teacherId = newLesson.teacherId}
+
             );
         }
 
         public void Delete(int id)
         {
-            var deleteLesson = _dataContextInstance.lessonsList.Find(lessI => lessI.id == id);
-            _dataContextInstance.lessonsList.Remove(deleteLesson);
+            var deleteLesson = _dataContextInstance.lessonsData.ToList<Lesson>().Find(lessI => lessI.ID == id);
+            _dataContextInstance.lessonsData.ToList<Lesson>().Remove(deleteLesson);
         }
     }
 }
